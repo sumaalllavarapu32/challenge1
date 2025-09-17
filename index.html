@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Real-Time Weather App</title>
+  <style>
+    body { font-family: Arial; text-align: center; margin: 40px; }
+    input { padding: 8px; }
+    button { padding: 8px; margin-left: 5px; }
+    #weather { margin-top: 20px; font-size: 18px; }
+  </style>
+</head>
+<body>
+  <h2>Weather App 🌦</h2>
+  <input type="text" id="city" placeholder="Enter city">
+  <button onclick="getWeather()">Check</button>
+  <div id="weather"></div>
+
+  <script>
+    async function getWeather() {
+      const city = document.getElementById("city").value;
+      const res = await fetch(https://wttr.in/${city}?format=%C+%t);
+      const data = await res.text();
+      document.getElementById("weather").textContent = `Weather
