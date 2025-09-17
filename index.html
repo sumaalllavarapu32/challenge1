@@ -2,23 +2,57 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Real-Time Weather App</title>
+  <title>Real-Time Digital Clock</title>
   <style>
-    body { font-family: Arial; text-align: center; margin: 40px; }
-    input { padding: 8px; }
-    button { padding: 8px; margin-left: 5px; }
-    #weather { margin-top: 20px; font-size: 18px; }
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(to right, #141E30, #243B55);
+      color: white;
+    }
+    #clock {
+      font-size: 70px;
+      font-weight: bold;
+      padding: 20px 40px;
+      border: 4px solid white;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0px 0px 20px rgba(0,0,0,0.6);
+    }
   </style>
 </head>
 <body>
-  <h2>Weather App 🌦</h2>
-  <input type="text" id="city" placeholder="Enter city">
-  <button onclick="getWeather()">Check</button>
-  <div id="weather"></div>
+  <!-- HTML part -->
+  <div id="clock"></div>
 
+  <!-- JavaScript part -->
   <script>
-    async function getWeather() {
-      const city = document.getElementById("city").value;
-      const res = await fetch(https://wttr.in/${city}?format=%C+%t);
-      const data = await res.text();
-      document.getElementById("weather").textContent = `Weather
+    function updateClock() {
+      const now = new Date();
+      let hours = now.getHours();
+      let minutes = String(now.getMinutes()).padStart(2, '0');
+      let seconds = String(now.getSeconds()).padStart(2, '0');
+      let session = "AM";
+
+      // Convert to 12-hour format with AM/PM
+      if (hours == 0) {
+        hours = 12;
+      } else if (hours >= 12) {
+        session = "PM";
+        if (hours > 12) hours = hours - 12;
+      }
+
+      hours = String(hours).padStart(2, '0');
+
+      document.getElementById("clock").textContent =
+        ${hours}:${minutes}:${seconds} ${session};
+    }
+
+    setInterval(updateClock, 1000); // update every second
+    updateClock(); // run immediately on page load
+  </script>
+</body>
+</html>
